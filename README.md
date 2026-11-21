@@ -29,7 +29,7 @@ used in the scenarios (2019: last calm year before the crisis; try 2024 too).
 |---|---|---|
 | `Elspotprices` | hourly day-ahead prices, DK1, DK2 and neighbours | 1 Jul 1999 to 30 Sep 2025 |
 | `DayAheadPrices` | successor, 15-min prices (averaged to hours) | from 1 Oct 2025 |
-| `ElectricityBalanceNonv` | hourly load, onshore/offshore wind, solar | to be checked by `clean.py` |
+| `ElectricityBalanceNonv` | hourly load, onshore/offshore wind, solar | from 1 Jan 2017 (checked on the API); `clean.py` prints the coverage |
 
 The balance data are non-validated SCADA data (Energinet warns they may have gaps);
 `clean.py` prints the coverage per year.
@@ -63,7 +63,8 @@ market coupling, interconnector capacity k:
 | `k` | interconnection + flexibility, as a share of mean load |
 | `p_floor` | lowest bid (negative with subsidies / must-run) |
 
-Calibrated by least absolute error on hourly prices 2015-2019, validated on
+Calibrated by least absolute error on hourly prices 2015-2019 (load and wind data
+start in 2017, so in practice 2017-2019), validated on
 2020-2025 against a naive benchmark (`P_t` alone). Scenarios scale the wind and
 solar output of the reference year to shares from 5% to 120% of load.
 Sensitivity (DK1): interconnection `k`, price floor, slope `b`.

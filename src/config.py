@@ -20,7 +20,7 @@ AREAS = ["DK1", "DK2"]
 # Nordic system price, used only for hours where none of the others exists.
 NEIGHBOURS = {"DK1": ["NO2", "SE3", "SE", "DE"], "DK2": ["SE4", "SE", "DE"]}
 
-FIRST_YEAR = 2000          # Elspotprices starts 1 July 1999
+FIRST_YEAR = 1999          # Elspotprices starts 1 July 1999
 LAST_YEAR = 2025
 CALIBRATION_YEARS = range(2015, 2020)   # model fitted on these years
 VALIDATION_YEARS = range(2020, 2026)    # and tested on these

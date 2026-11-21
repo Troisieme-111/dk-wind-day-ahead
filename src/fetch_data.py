@@ -11,6 +11,7 @@ are skipped, so the script can be re-run after an interruption.
 Usage:  python src/fetch_data.py            (all years)
         python src/fetch_data.py 2015 2025  (a range of years)
 """
+import re
 import sys
 import time
 
@@ -31,11 +32,14 @@ DATASETS = {
 def fetch(name: str, start: str, end: str) -> pd.DataFrame:
     """Download all records of `name` between start (incl.) and end (excl.), DK time."""
     params = {"start": start, "end": end, "limit": 0}
-    for attempt in range(4):
+    for attempt in range(8):
         try:
             r = requests.get(API.format(name=name), params=params, timeout=120)
-            if r.status_code == 429:          # rate limit: 50 calls / 10 s
-                time.sleep(10)
+            if r.status_code == 429:          # rate limit: the block can last ~5 min
+                m = re.search(r"(\d+) seconds", r.text)
+                wait = int(m.group(1)) + 5 if m else 60
+                print(f"   rate limited, waiting {wait} s")
+                time.sleep(wait)
                 continue
             r.raise_for_status()
             return pd.DataFrame(r.json().get("records", []))

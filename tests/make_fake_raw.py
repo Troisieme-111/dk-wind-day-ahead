@@ -29,7 +29,7 @@ for y in YEARS:
     t = pd.date_range(f"{y}-01-01", f"{y + 1}-01-01", freq="h", tz="UTC", inclusive="left")
     n = len(t)
     h = t.hour.to_numpy()
-    season = 1 + 0.15 * np.cos(2 * np.pi * (t.dayofyear.to_numpy() - 15) / 365)
+    season = 1 + 0.15 * np.cos(2 * np.pi * (t.day_of_year.to_numpy() - 15) / 365)
     fuel = 35 * (1 + 0.04 * (y - 2013)) * (3.5 if y == 2022 else 1.8 if y in (2021, 2023) else 1)
     prices, balance = [], []
     common_wind = wind_series(n, 0.33)
